@@ -1,0 +1,71 @@
+version: '3'
+
+services:
+
+  # 数据库管理
+  adminer:
+    image: adminer
+    #build: ./adminer
+    #depends_on:
+    #  - php-fpm
+    restart: always
+    volumes:
+      - ./adminer/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+    ports:
+      - ${DB_ADMINER_PORT}:8080
+
+  # php-fpm
+  php-fpm:
+    build: ./php-fpm
+    image: app_php-fpm
+    depends_on:
+      - db
+    volumes:
+      - ${APPLICATION}:/var/www/html:cached
+    environment:
+      - CHANGE_SOURCE=${CHANGE_SOURCE}
+
+#  # php-worker，执行队列等
+#  php-worker:
+#    build: ./php-worker
+#    depends_on:
+#      - php-base
+
+  # php-composer，安装组建等
+  workspace:
+    build: ./workspace
+    depends_on:
+      - php-fpm
+    environment:
+      - CHANGE_SOURCE=${CHANGE_SOURCE}
+    volumes:
+      - ${APPLICATION}:/var/www/html:cached
+    tty: true
+    
+
+  # nginx
+  nginx:
+    image: nginx:alpine
+    depends_on:
+      - php-fpm
+    volumes:
+      - ${APPLICATION}:/var/www/html:cached
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "80:80"
+
+#  # redis
+#  redis:
+#    #build: ./redis
+#    image: redis
+
+  # db 因为 postgres 镜像小，同时laravel完全支持，所以选择了这个数据库
+  db:
+    image: postgres:10-alpine
+    volumes:
+      - ${APPLICATION}:/var/www/html:cached
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_DB=${DB_NAME}
+
