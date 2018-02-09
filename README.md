@@ -1,5 +1,5 @@
 
-# Laravel 5 开发环境Dockerfile
+# docker project for Laravel
 > 只供开发使用
 > 体积小，编译／下载速度快
 > 针对中国网络环境加速（为中国加油！）
