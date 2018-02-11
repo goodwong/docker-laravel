@@ -25,13 +25,13 @@
 
 $ docker-compose images
 
-Container            |      Repository     |     Tag    |    Image Id   |   Size  
----------------------|---------------------|------------|---------------|---------
-wuguibao_adminer_1   |  adminer            |  latest    |  9786c2d422b6 |  62.6 MB
-wuguibao_db_1        |  postgres           |  10-alpine |  e6c5e6a76255 |  36.4 MB
-wuguibao_nginx_1     |  nginx              |  alpine    |  bb00c21b4edf |  16 MB  
-wuguibao_php-fpm_1   |  app_php-fpm        |  latest    |  3896900d3ffa |  77.9 MB
-wuguibao_workspace_1 |  wuguibao_workspace |  latest    |  b130c5af648a |  80.3 MB
+Container       |  Repository    |     Tag    |    Image Id   |   Size  
+----------------|----------------|------------|---------------|---------
+app_adminer_1   |  adminer       |  latest    |  9786c2d422b6 |  62.6 MB
+app_db_1        |  postgres      |  10-alpine |  e6c5e6a76255 |  36.4 MB
+app_nginx_1     |  nginx         |  alpine    |  bb00c21b4edf |  16 MB  
+app_php-fpm_1   |  app_php-fpm   |  latest    |  3896900d3ffa |  77.9 MB
+app_workspace_1 |  app_workspace |  latest    |  b130c5af648a |  80.3 MB
 
 $ docker system df
 
