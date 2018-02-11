@@ -22,7 +22,9 @@
 - 分层构建，重复利用文件层（如php依赖）
 
 附：镜像体积
+
 $ docker-compose images
+
 Container            |      Repository     |     Tag    |    Image Id   |   Size  
 ---------------------|---------------------|------------|---------------|---------
 wuguibao_adminer_1   |  adminer            |  latest    |  9786c2d422b6 |  62.6 MB
@@ -32,6 +34,7 @@ wuguibao_php-fpm_1   |  app_php-fpm        |  latest    |  3896900d3ffa |  77.9 
 wuguibao_workspace_1 |  wuguibao_workspace |  latest    |  b130c5af648a |  80.3 MB
 
 $ docker system df
+
 TYPE          | TOTAL | ACTIVE | SIZE    | RECLAIMABLE
 --------------|-------|--------|---------|---------------
 Images        | 10    | 7      | 258.1MB | 84.21MB (32%)
