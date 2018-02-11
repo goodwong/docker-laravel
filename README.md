@@ -11,15 +11,34 @@
 2. 可以支持多个项目同时运行（只要端口不冲突）
 
 
-#### 速度优化：
+#### 速度优化：（电信20MB带宽，2分钟左右完成构建）
 - alpine使用国内镜像
 - composer使用国内镜像
 - npm使用国内镜像
 
 
-#### 体积优化
+#### 体积优化（使用镜像控制在200MB左右，不含压缩）
 - 全部使用alpine以及以此为基础的docker包
 - 分层构建，重复利用文件层（如php依赖）
+
+附：镜像体积
+$ docker-compose images
+Container            |      Repository     |     Tag    |    Image Id   |   Size  
+---------------------|---------------------|------------|---------------|---------
+wuguibao_adminer_1   |  adminer            |  latest    |  9786c2d422b6 |  62.6 MB
+wuguibao_db_1        |  postgres           |  10-alpine |  e6c5e6a76255 |  36.4 MB
+wuguibao_nginx_1     |  nginx              |  alpine    |  bb00c21b4edf |  16 MB  
+wuguibao_php-fpm_1   |  app_php-fpm        |  latest    |  3896900d3ffa |  77.9 MB
+wuguibao_workspace_1 |  wuguibao_workspace |  latest    |  b130c5af648a |  80.3 MB
+
+$ docker system df
+TYPE          | TOTAL | ACTIVE | SIZE    | RECLAIMABLE
+--------------|-------|--------|---------|---------------
+Images        | 10    | 7      | 258.1MB | 84.21MB (32%)
+Containers    | 11    | 11     | 23.99kB | 0B (0%)
+Local Volumes | 8     | 2      | 448.7MB | 332MB (73%)
+Build Cache   |       |        | 0B      | 0B
+
 
 
 ## 使用
