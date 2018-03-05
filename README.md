@@ -117,6 +117,7 @@ php artisan storage:link
 - DB_PASSWORD=app
 - DB_USER=app
 - DB_NAME=app
+- DB_DIR=./db/data
 
 
 #### 数据库管理（临时使用）
