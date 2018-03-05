@@ -34,7 +34,7 @@ services:
     volumes:
       - ${APPLICATION}:/var/www/html:cached
 
-  # php-composer，安装组建等
+  # php-composer，安装组键、发布到服务器等操作
   workspace:
     build: ./workspace
     depends_on:
@@ -43,6 +43,7 @@ services:
       - CHANGE_SOURCE=${CHANGE_SOURCE}
     volumes:
       - ${APPLICATION}:/var/www/html:cached
+      - ~/.ssh/:/root/.ssh/:cached
     tty: true
     
 
