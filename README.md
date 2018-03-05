@@ -1,6 +1,6 @@
 
 
-# docker project for Laravel
+# docker 环境 for Laravel
 > 只供开发使用
 > 体积小，编译／下载速度快
 > 针对中国网络环境加速（为中国加油！）
@@ -14,10 +14,10 @@
 #### 速度优化：（电信20MB带宽，2分钟左右完成构建）
 - alpine使用国内镜像
 - composer使用国内镜像
-- npm使用国内镜像
+- ~~npm使用国内镜像~~（前端项目另起一个项目 [goodwong/docker-webpack](https://github.com/goodwong/docker-webpack) ）
 
 
-#### 体积优化（使用镜像控制在200MB左右，不含压缩）
+#### 体积优化（使用镜像控制在200MB左右，压缩传输体积还要更小）
 - 全部使用alpine以及以此为基础的docker包
 - 分层构建，重复利用文件层（如php依赖）
 
