@@ -8,7 +8,6 @@ services:
     #build: ./adminer
     #depends_on:
     #  - php-fpm
-    restart: always
     volumes:
       - ./adminer/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     ports:
@@ -63,6 +62,7 @@ services:
   redis:
     #build: ./redis
     image: redis:4-alpine
+    restart: always
 
   # db 因为 postgres 镜像小，同时laravel完全支持，所以选择了这个数据库
   db:
