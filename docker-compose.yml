@@ -19,6 +19,7 @@ services:
     image: app_php-fpm
     depends_on:
       - db
+      - redis
     volumes:
       - ${APPLICATION}:/var/www/html:cached
     environment:
