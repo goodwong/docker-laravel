@@ -103,6 +103,12 @@ DB_PORT=5432
 DB_DATABASE=app
 DB_USERNAME=app
 DB_PASSWORD=app
+
+CACHE_DRIVER=redis
+SESSION_DRIVER=redis
+QUEUE_DRIVER=redis
+
+REDIS_HOST=redis
 ```
 
 2. 在`workspace`里面执行
