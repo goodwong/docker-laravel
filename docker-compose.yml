@@ -30,7 +30,7 @@ services:
     build: ./php-worker
     depends_on:
       - php-fpm
-    restart: always
+    restart: ${CONTAINER_RESTART}
     volumes:
       - ${APPLICATION}:/var/www/html:cached
 
@@ -63,11 +63,12 @@ services:
   redis:
     #build: ./redis
     image: redis:4-alpine
-    restart: always
+    restart: ${CONTAINER_RESTART}
 
   # db 因为 postgres 镜像小，同时laravel完全支持，所以选择了这个数据库
   db:
     image: postgres:10-alpine
+    restart: ${CONTAINER_RESTART}
     volumes:
       - ${APPLICATION}:/var/www/html:cached
       - ${DB_DIR}:/var/lib/postgresql/data
