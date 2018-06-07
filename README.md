@@ -54,23 +54,10 @@ Build Cache   |       |        | 0B      | 0B
 
 ## 使用
 
-1. 加入项目（非packagist）
-编辑composer.json
-```json
-    "prefer-stable": true,
-    // 加上以下内容
-    "repositories": [
-        {
-            "type": "path",
-            "url": ".packages/*/*"
-        }
-    ]
-```
-运行命令安装
+1. 运行命令安装
 ```shell
 git submodule add https://github.com/goodwong/docker-laravel.git .docker-compose
 # git submodule add git@github.com:goodwong/docker-laravel.git .docker-compose
-composer require goodwong/laravel-shop
 ```
 
 2. 配置`docker-compose/.env`文件
