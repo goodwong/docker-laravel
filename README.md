@@ -69,6 +69,7 @@ Build Cache   |       |        | 0B      | 0B
 运行命令安装
 ```shell
 git submodule add https://github.com/goodwong/docker-laravel.git .docker-compose
+# git submodule add git@github.com:goodwong/docker-laravel.git .docker-compose
 composer require goodwong/laravel-shop
 ```
 
