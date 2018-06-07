@@ -34,7 +34,21 @@ RUN NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) \
 # pcntl
 RUN NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) \
     && docker-php-ext-install -j${NPROC} pcntl
+# opcache
+RUN apk add --no-cache pcre-dev \
+    && docker-php-ext-install opcache
+# conf
+RUN echo -e "\npm.max_children = 50\npm.start_servers = 20\npm.min_spare_servers = 15\npm.max_spare_servers = 35\n" >> /usr/local/etc/php-fpm.d/zz-docker.conf
     # docker-php-ext-install -j5 iconv mcrypt && \
-    # # redis
-    # pecl install redis-3.1.0 && \
-    # docker-php-ext-enable redis && \
+# redis
+RUN apk add --no-cache --virtual .build-deps \
+        $PHPIZE_DEPS \
+        coreutils \
+        curl-dev \
+        libedit-dev \
+        libressl-dev \
+        libsodium-dev \
+        libxml2-dev \
+        sqlite-dev && \
+    yes '' | pecl install redis && \
+    docker-php-ext-enable redis
