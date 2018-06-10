@@ -20,6 +20,8 @@ RUN if [ ${CHANGE_SOURCE} == CN ]; then \
     composer config -g repo.packagist composer https://packagist.phpcomposer.com \
 ;fi
 
+USER www-data
+
 ENTRYPOINT []
 
 CMD ["/bin/sh"]
