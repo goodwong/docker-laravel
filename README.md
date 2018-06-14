@@ -71,16 +71,16 @@ cp .env.example .env
 3. 启动服务
 ```shell
 cd .docker-compose/
-# 启动所有服务 adminer、nginx（包含db、redis）、php-worker，一键启动开发环境
+# 启动所有服务 adminer、web、worker、cron、workspace
 docker-compose up -d
-# 或者只启动nginx web服务
-docker-compose up -d nginx
-# 或者只启动php-worker服务（需要安装laravel/horizon）
-docker-compose up -d php-worker
+# 或者只启动web（包含nginx、db、redis）服务
+docker-compose up -d web
+# 或者只启动worker服务（需要安装laravel/horizon）
+docker-compose up -d worker
 ```
 
 
-4. php操作（包含composer/artisan）
+4. php操作（包含composer、artisan，权限为www-data）
 ```shell
 cd .docker-compose/
 docker-compose run --rm workspace sh

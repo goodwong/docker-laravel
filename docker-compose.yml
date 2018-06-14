@@ -26,10 +26,21 @@ services:
       - CHANGE_SOURCE=${CHANGE_SOURCE}
 
   # php-worker，执行队列等
-  php-worker:
+  worker:
     build: ./php-worker
     depends_on:
-      - php-fpm
+      - db
+      - redis
+    restart: ${CONTAINER_RESTART}
+    volumes:
+      - ${APPLICATION}:/var/www/html:cached
+
+  # php-worker，执行队列等
+  cron:
+    build: ./cron
+    depends_on:
+      - db
+      - redis
     restart: ${CONTAINER_RESTART}
     volumes:
       - ${APPLICATION}:/var/www/html:cached
@@ -48,7 +59,7 @@ services:
     
 
   # nginx
-  nginx:
+  web:
     image: nginx:alpine
     depends_on:
       - php-fpm
