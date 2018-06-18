@@ -1,4 +1,4 @@
-FROM app_php-fpm
+FROM docker-laravel-php-fpm
 
 # COPY --from=composer /usr/bin/composer /usr/bin/composer
 # 体积太大了，自己安装

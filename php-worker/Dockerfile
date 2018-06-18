@@ -1,4 +1,4 @@
-FROM app_php-fpm
+FROM docker-laravel-php-fpm
 
 USER www-data
 

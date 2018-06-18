@@ -29,8 +29,7 @@ services:
   worker:
     build: ./php-worker
     depends_on:
-      - db
-      - redis
+      - php-fpm
     restart: ${CONTAINER_RESTART}
     volumes:
       - ${APPLICATION}:/var/www/html:cached
@@ -39,8 +38,7 @@ services:
   cron:
     build: ./cron
     depends_on:
-      - db
-      - redis
+      - php-fpm
     restart: ${CONTAINER_RESTART}
     volumes:
       - ${APPLICATION}:/var/www/html:cached
