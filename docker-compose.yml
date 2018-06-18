@@ -16,7 +16,7 @@ services:
   # php-fpm
   php-fpm:
     build: ./php-fpm
-    image: app_php-fpm
+    image: docker-laravel-php-fpm
     depends_on:
       - db
       - redis
