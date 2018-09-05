@@ -148,7 +148,7 @@ php artisan storage:link
 
 #### 数据库管理（临时使用）
 ```shell
-docker-compose run --rm -p 8080:8080 adminer
+docker-compose run --rm -p 8899:8080 adminer
 ```
 访问 http://localhost:8080
 
