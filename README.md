@@ -7,12 +7,6 @@
 
 > 针对中国网络环境加速（为中国加油！）
 
-**注意**
-队列使用`laravel/horizon`，因此项目需要安装此模块
-```shell
-composer require laravel/horizon
-```
-
 
 ## 特色
 1. 在一个docker环境下，运行一个命令 docker-compose up，即可开始一个完整的laravel开发环境
@@ -55,77 +49,100 @@ Build Cache   |       |        | 0B      | 0B
 ## 使用
 
 1. 运行命令安装
-```shell
-git submodule add https://github.com/goodwong/docker-laravel.git .docker-compose
-# git submodule add git@github.com:goodwong/docker-laravel.git .docker-compose
-```
+    ```shell
+    git submodule add https://github.com/goodwong/docker-laravel.git .docker-compose
+    # git submodule add git@github.com:goodwong/docker-laravel.git .docker-compose
+    ```
 
 2. 配置`docker-compose/.env`文件
-```shell
-cd .docker-compose/ # 进入docker-laravel子目录（一般命名为 .docker-compose）
-cp .env.example .env
-```
-并且修改里面的少量配置
+    ```shell
+    cd .docker-compose/ # 进入docker-laravel子目录（一般命名为 .docker-compose）
+    cp .env.example .env
+    ```
+    > 若是多项目运行，需要修改`.env`文件相关配置
 
 
 3. 启动服务
-```shell
-cd .docker-compose/
-# 启动所有服务 adminer、web、worker、cron、workspace
-docker-compose up -d
-# 或者只启动web（包含nginx、db、redis）服务
-docker-compose up -d web
-# 或者只启动worker服务（需要安装laravel/horizon）
-docker-compose up -d worker
-```
+    ```shell
+    cd .docker-compose/
+
+    # 启动web（包含nginx、db、redis）服务
+    docker-compose up -d web
+
+    # 启动worker服务（需要安装laravel/horizon）
+    docker-compose up -d worker
+
+    # 启动cron服务（一般生产环境才需要）
+    docker-compose up -d cron
+
+    # 或者一键启动所有服务 adminer、web、worker、cron、workspace
+    docker-compose up -d
+    ```
 
 
-4. php操作（包含composer、artisan，权限为www-data）
-```shell
-cd .docker-compose/
-docker-compose run --rm workspace sh
-```
+4. 在`workspace`容器里操作php（包含composer、artisan，权限为www-data）
+    ```shell
+    cd .docker-compose/
+    docker-compose run --rm workspace sh
+    ```
 
 
 5. 访问
-- http://localhost:your-web-port （web）
-- http://localhost:your-adminer-port/?pgsql=db&db=app （DB管理，初始用户名密码都是app）
+    - http://localhost:your-web-port （web）
+    - http://localhost:your-adminer-port/?pgsql=db&db=app （DB管理，初始用户名密码都是app）
 
 
 
 ## 新Laravel项目操作
-> `workspace`容器里面
+> 需要进入`workspace`容器里面
+> ```shell
+> docker-compose run --rm workspace sh
+> ```
 
-1. 配置`laravel`的.env文件
-```ini
-DB_CONNECTION=pgsql
-DB_HOST=db
-DB_PORT=5432
-DB_DATABASE=app
-DB_USERNAME=app
-DB_PASSWORD=app
+1. 复制`.env文件`
+    ```shell
+    cp .env.example .env # 注意需要编辑参数
+    ```
 
-CACHE_DRIVER=redis
-SESSION_DRIVER=redis
-QUEUE_DRIVER=redis
+2. 配置`laravel`的.env文件以下相应项：
+    ```ini
+    DB_CONNECTION=pgsql
+    DB_HOST=db
+    DB_PORT=5432
+    DB_DATABASE=app
+    DB_USERNAME=app
+    DB_PASSWORD=app
 
-REDIS_HOST=redis
-```
+    CACHE_DRIVER=redis
+    SESSION_DRIVER=redis
+    QUEUE_DRIVER=redis
 
-2. 安装依赖(Predis)
-https://laravel.com/docs/master/redis
-```shell
-composer require predis/predis
-```
+    REDIS_HOST=redis
+    ```
 
-2. 在`workspace`里面执行
-```shell
-composer install
-cp .env.example .env # 注意需要编辑参数
-php artisan key:generate
-php artisan migrate
-php artisan storage:link
-```
+3. 安装依赖  
+
+    **Predis**  
+    https://laravel.com/docs/master/redis  
+
+    ```shell
+    composer require predis/predis
+    ```
+
+    **队列**  
+    队列依赖`laravel/horizon`  
+    若需要使用队列机制，需安装此模块
+    ```shell
+    composer require laravel/horizon
+    ```
+
+4. 安装模块、初始化
+    ```shell
+    composer install
+    php artisan key:generate
+    php artisan migrate
+    php artisan storage:link
+    ```
 
 
 ## 配置`.docker-compose/.env`文件
@@ -135,10 +152,9 @@ php artisan storage:link
 
 #### web端口
 - NGINX_HOST_HTTP_PORT=80
-- NGINX_HOST_HTTPS_PORT=443
 
 
-#### 数据库管理
+#### 数据库
 - DB_ADMINER_PORT=8001
 - DB_PASSWORD=app
 - DB_USER=app
@@ -148,9 +164,9 @@ php artisan storage:link
 
 #### 数据库管理（临时使用）
 ```shell
-docker-compose run --rm -p 8899:8080 adminer
+docker-compose run --rm -p 8899:8080 adminer # <------  前面的8899为本机端口，可以自己定义
 ```
-访问 http://localhost:8080
+访问 http://localhost:8899 # <------  此`8899`即刚才所定义的端口
 
 
 ## TODO:
