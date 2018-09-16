@@ -168,11 +168,16 @@ Build Cache   |       |        | 0B      | 0B
     ```
 
 
-## 数据库管理（临时使用）
+## 数据库管理
+
+1. 启动`adminer`服务
     ```shell
-    docker-compose run --rm -p 8899:8080 adminer # <------  前面的8899为本机端口，可以自己定义
+    docker-compose run --rm -p 8899:8080 adminer
+    #                           ^
+    #                        此8899为本机端口，可以自己定义
     ```
-    访问 http://localhost:8899 # <------  此`8899`即刚才所定义的端口
+    > 安全起见，即用即关
+2. 访问 http://localhost:8899 #   <------  此`8899`即刚才所定义的端口
 
 
 ## TODO:
