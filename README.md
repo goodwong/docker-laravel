@@ -147,34 +147,40 @@ Build Cache   |       |        | 0B      | 0B
 
 ## 配置`.docker-compose/.env`文件
 
-#### 项目名（多项目开发时必须修改）
-- COMPOSE_PROJECT_NAME=XX_APP
+- 项目名（多项目开发时必须修改）
+    ```ini
+    COMPOSE_PROJECT_NAME=XX_APP
+    ```
 
-#### web端口
-- NGINX_HOST_HTTP_PORT=80
-
-
-#### 数据库
-- DB_ADMINER_PORT=8001
-- DB_PASSWORD=app
-- DB_USER=app
-- DB_NAME=app
-- DB_DIR=./db/data
+- web端口
+    ```ini
+    NGINX_HOST_HTTP_PORT=80
+    ```
 
 
-#### 数据库管理（临时使用）
-```shell
-docker-compose run --rm -p 8899:8080 adminer # <------  前面的8899为本机端口，可以自己定义
-```
-访问 http://localhost:8899 # <------  此`8899`即刚才所定义的端口
+- 数据库
+    ```ini
+    DB_ADMINER_PORT=8001
+    DB_PASSWORD=app
+    DB_USER=app
+    DB_NAME=app
+    DB_DIR=./db/data
+    ```
+
+
+## 数据库管理（临时使用）
+    ```shell
+    docker-compose run --rm -p 8899:8080 adminer # <------  前面的8899为本机端口，可以自己定义
+    ```
+    访问 http://localhost:8899 # <------  此`8899`即刚才所定义的端口
 
 
 ## TODO:
 
-#### 优化
-- adminer是从php:7.2-alpine，可以写一个，镜像重用，节省65MB流量，但是维护复杂度尚待考虑
-  (尝试失败，直接复制adminer的Dockerfile会从s3墙外下载，速度更慢)
-  (后续可以尝试直接复制文件进入镜像来制作)
+- 优化  
+    adminer是从php:7.2-alpine，可以写一个，镜像重用，节省65MB流量，但是维护复杂度尚待考虑
+    (尝试失败，直接复制adminer的Dockerfile会从s3墙外下载，速度更慢)
+    (后续可以尝试直接复制文件进入镜像来制作)
 
-#### 功能
-- php-fpm 需要添加一个 build-scripts目录。里面的文件会在build的时候依次执行，用于按转自定义组件（如GD）。这个文件夹不进入git代码库
+- 功能  
+    php-fpm 需要添加一个 build-scripts目录。里面的文件会在build的时候依次执行，用于按转自定义组件（如GD）。这个文件夹不进入git代码库
