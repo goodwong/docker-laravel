@@ -13,13 +13,15 @@ RUN apk --no-cache add zlib-dev && \
     composer --ansi --version --no-interaction && \
     rm -rf /tmp/* /tmp/.htaccess
 
+RUN echo "memory_limit = 512M" > /usr/local/etc/php/conf.d/php.ini
+
 USER www-data
 
 ARG CHANGE_SOURCE=CN
 RUN if [ ${CHANGE_SOURCE} == CN ]; then \
     # Change composer to china source
     echo "change to Chinese composer source"; \
-    composer config -g repo.packagist composer https://packagist.phpcomposer.com \
+    composer config -g repo.packagist composer https://packagist.laravel-china.org \
 ;fi
 
 ENTRYPOINT []
