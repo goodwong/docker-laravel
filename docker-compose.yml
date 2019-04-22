@@ -22,6 +22,7 @@ services:
       - redis
     volumes:
       - ${APPLICATION}:/var/www/html:cached
+      - ./php-fpm/docker.ini:/usr/local/etc/php/conf.d/docker.ini
     environment:
       - CHANGE_SOURCE=${CHANGE_SOURCE}
 
