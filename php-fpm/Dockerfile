@@ -38,7 +38,7 @@ RUN NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) \
 RUN apk add --no-cache pcre-dev \
     && docker-php-ext-install opcache
 # conf
-RUN echo -e "\npm.max_children = 50\npm.start_servers = 20\npm.min_spare_servers = 15\npm.max_spare_servers = 35\n" >> /usr/local/etc/php-fpm.d/zz-docker.conf
+RUN echo -e "\npm.max_children = 50\npm.start_servers = 2\npm.min_spare_servers = 2\npm.max_spare_servers = 35\n" >> /usr/local/etc/php-fpm.d/zz-docker.conf
     # docker-php-ext-install -j5 iconv mcrypt && \
 # redis
 RUN apk add --no-cache --virtual .build-deps \
